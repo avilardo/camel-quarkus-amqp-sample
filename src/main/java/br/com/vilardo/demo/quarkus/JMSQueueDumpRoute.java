@@ -5,14 +5,14 @@ import org.apache.camel.builder.RouteBuilder;
 
 public class JMSQueueDumpRoute extends RouteBuilder{
     
-    private static String QUEUE_ID = "JMS-QUEUE";
-    private static String QUEUE_URI = "${route.jms.queue}";
+    private static String QUEUE_ID = "{{route.jms.queue.id}}";
+    private static String QUEUE_URI = "{{route.jms.queue.uri}}";
 
     @Override
     public void configure() throws Exception {
         
 
-        from("jms://queue:camel.test::sub.camel.test?transacted=true&testConnectionOnStartup=true")
+        from(QUEUE_URI)
             .routeId(QUEUE_ID)
             .log(LoggingLevel.INFO, "Teste \n ${body}");
     }
